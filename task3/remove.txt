@@ -1,0 +1,176 @@
+#include<iostream>
+#include<stack>
+using namespace std;
+
+// Node
+
+struct Node {
+public:
+    int data;
+    Node* next;
+};
+
+class LinkedList {
+private:
+    Node* head;
+    int count;
+public:
+    LinkedList() {
+        head = nullptr;
+        count = 0;
+    }
+
+    bool isEmpty() { return head == nullptr; }
+
+    bool isFull() {
+        Node* temp = new Node();
+
+        if (temp == nullptr)
+            return true;
+
+        delete temp;
+
+        return false;
+    }
+
+    void insertAtPosition(int postition, int data) {
+        if (postition < 0) {
+            cout << " position is invalid" << endl;
+            return;
+        }
+
+        Node* temp = head;
+
+        Node* t = new Node;
+
+        t->data = data;
+
+        if (postition == 0) {
+            // add node at the first
+
+            t->next = head;
+            head = t;
+        }
+
+        else {
+
+            for (int i = 0; i < postition - 1 && temp; i++) {
+                temp = temp -> next;
+            }
+
+            if (temp != nullptr) {
+                t->next = temp->next;
+
+                temp->next = t;
+            }
+
+            else {
+                cout << "position greater than the number of elements";
+                delete t;
+                return;
+            }
+        }
+
+        count++;
+    }
+
+    void deleteAtPosistion(int pos) {
+        if (isEmpty())
+        {
+            cout << "linked list is empty" << endl;
+            //  return -1;
+        }
+
+        if (pos <= 0)
+        {
+            cout << "invalid position" << endl;
+            //  return -1;
+        }
+        int x;
+        if (pos == 1) {
+            Node* t = head;
+            x = head->data;
+            head = head->next;
+            delete t;
+        }
+
+        else {
+            Node* prev = nullptr;
+            Node* curr = head;
+
+            for (int i = 0; i < pos - 1 && curr; i++) {
+                prev = curr;
+                curr = curr->next;
+            }
+
+            x = curr->data;
+            if (curr != nullptr) {
+                prev->next = curr->next;
+                delete curr;
+            }
+            else{
+                cout << " invalid index " << endl;
+                //return -1;
+            }
+
+        }
+
+        // return x;
+    }
+    void print() {
+        Node* t = head;
+
+        while (t != nullptr) {
+            cout << t->data << endl;
+            t = t->next;
+        }
+    }
+
+    int Count() {
+        return count;
+    }
+
+    void RemoveAllOccurrences(int num ){
+        Node* ptr =head ;
+
+        int pos=1;
+        if (isEmpty()){
+            cout << "the linked list is empty ";
+            return;
+        }
+        while (ptr != nullptr){
+
+            if (ptr->data == num) {
+
+                deleteAtPosistion(pos);
+
+                //  count--;
+            }
+            ptr=  ptr -> next;
+            pos++;
+        }
+
+    }
+
+
+
+
+};
+
+
+int main() {
+    LinkedList* l1 = new LinkedList;
+
+    l1->insertAtPosition(0, 4);
+    l1->insertAtPosition(1, 1);
+    l1->insertAtPosition(2, 2);
+    l1->insertAtPosition(3, 3);
+    l1->insertAtPosition(4, 1);
+    l1->insertAtPosition(5, 4);
+    l1->insertAtPosition(6, 4);
+    l1->insertAtPosition(7, 5);
+    l1->insertAtPosition(8, 4);
+
+    l1->print();
+    return 0;
+}
