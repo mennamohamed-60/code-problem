@@ -1,0 +1,108 @@
+#include<iostream>
+using namespace std;
+struct item {
+    char value ;
+    int priority;
+};
+class PriQueue {
+    int front ;
+    int rear ;
+    int size ;
+    int lenght =-1 ;
+    item* queue ;
+public:
+    PriQueue( int lenght ){
+       size=lenght ;
+      front=rear=-1 ;
+      queue=new item[size];
+    }
+   bool isEmpty(){
+        return(front==-1&& rear ==-1);
+        }
+   bool isFull() {
+       return (rear+1 % size == front);
+   }
+   void enqueue(char value, int priority)
+    {
+        if (isFull())
+        {
+            cout << " the queue is full  "<< endl ;
+            return ;
+        }
+        else if ( isEmpty()){
+            rear=front=0 ;
+            queue[rear].value = value;
+            queue[rear].priority = priority;
+        }
+        else {
+            rear=(rear+1)% size;
+            queue[rear].value = value;
+            queue[rear].priority = priority;
+            highestPriority();
+        }
+
+
+
+    }
+    void highestPriority(){
+     int y ;
+     item t ;
+     for (int i=1 ;i<=rear ;i++){
+         y=i-1 ;
+         t.value = queue[i].value ;
+         t.priority = queue[i].priority ;
+         while (y>=0 && t.priority < queue[y].priority){
+            queue[y+1].value=queue[y].value;
+            queue[y+1].priority=queue[y].priority;
+            y--;
+         }
+         queue[y+1].value= t.value;
+         queue[y+1].priority= t.priority;
+     }
+
+    }
+
+    int dequeue (){
+        int x =-1 ;
+        if (isEmpty())
+        {
+            cout << "queue is empty" << endl ;
+            return x ;
+        }
+        else if (front == rear ){
+            x = queue[front].value;
+            front =rear =-1 ;
+        }
+        else{
+            x=queue[front].value;
+            front= (front +1 ) % size ;
+        }
+        return x ;
+    }
+    void print (){
+        for (int i=front ;i!=rear;i=(i+1)%size ){
+          cout << "value is :"<< queue[i].value<<" ,priority is :"<<queue[i].priority<< endl;
+        }
+        cout << "value is :"<< queue[rear].value<<" ,priority is :"<<queue[rear].priority<< endl;
+
+    }
+
+
+
+    };
+int main(){
+    PriQueue p(6) ;
+    p.enqueue('a',9);
+    p.enqueue('k',3);
+    p.enqueue('o',5);
+    p.enqueue('m',1);
+    p.enqueue('l',10);
+
+    p.print();
+
+
+
+
+
+    return 0;
+}

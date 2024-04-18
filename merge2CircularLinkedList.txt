@@ -1,0 +1,59 @@
+ void Merge(CircularLinkedList& list1, CircularLinkedList& list2) {     // Time Complexity: O(n) 
+                                                                       // Space Complexity: O(1)
+        Node* curr2 = list2.rear->next;
+        do{
+            list1.Insert(curr2->data);
+            curr2=curr2->next;
+
+        } while (curr2!=list2.rear->next );
+
+    }
+
+    void checkDuplication(CircularLinkedList& list1){                   // Time Complexity: O(n) 
+                                                                       // Space Complexity: O(1)
+        Node* f = list1.rear;
+        Node* s = list1.rear->next;
+        f=f->next;
+        s=s->next;
+        do{
+
+            if (f->data == s->data){
+                list1.Delete(f->data);
+                f=s ;
+                s=s->next;
+            }
+            else {
+                f=s ;
+                s=s->next;
+            }
+
+        }while(s != list1.rear->next);
+
+
+    }
+
+
+};
+
+
+
+int main() {
+    
+    CircularLinkedList list1;
+    list1.Insert(1);
+    list1.Insert(2);
+    list1.Insert(3);
+    list1.Insert(4);
+    list1.Insert(4);
+
+    CircularLinkedList list2;
+    list2.Insert(1);
+    list2.Insert(10);
+    list2.Insert(10);
+
+    list1.Merge(list1,list2);
+    list1.checkDuplication(list1);
+    list1.Print();
+
+
+    return 0;

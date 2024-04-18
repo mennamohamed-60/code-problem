@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {              //Space Complexity O(1) 
+        ListNode* p =head;
+        int i=0;
+        while (p != nullptr && i<10001) {       //time Complexity O(n)
+            p= p->next ;
+            i++;
+        }
+        return i==10001;
+    }
+
+};

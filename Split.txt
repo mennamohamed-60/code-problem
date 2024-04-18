@@ -1,0 +1,50 @@
+ void Split(DoublyLinkedList& list1, DoublyLinkedList& list2) {
+        if (list1.head == nullptr) {
+            cout << "Empty list" << endl;
+            return;
+        }
+
+
+        Node* f = list1.head;
+        Node* s = list1.head->next;
+
+
+        while (s != nullptr && s->next != nullptr) {
+            f = f->next;
+            s = s->next->next;
+        }
+
+        list2.head = f->next;
+        f->next = nullptr;
+
+        if (list2.head != nullptr) {
+            list2.head->previous = nullptr;
+        }
+    }
+};
+
+
+int main() {
+    DoublyLinkedList list1;
+    list1.Insert(1,0);
+    list1.Insert(2,1);
+    list1.Insert(3,2);
+    list1.Insert(4,3);
+    list1.Insert(5,4);
+    list1.Insert(6,5);
+
+
+    cout << "Original list: "<< endl ;
+    list1.Print();
+
+    DoublyLinkedList  list2;
+    list1.Split(list1, list2);
+
+    cout << "First half: "<< endl;
+    list1.Print();
+
+    cout << "Second half: "<< endl ;
+    list2.Print();
+    return 0;
+
+}
