@@ -1,0 +1,34 @@
+ void reverseDoublyLinkedList() {     Time Complexity: O(n)
+                                      Space Complexity: O(1)
+        Node* current = head;
+        Node* temp = nullptr;
+
+        while (current != nullptr) {
+            temp = current->previous;
+            current->previous = current->next;
+            current->next = temp;
+            current = current->previous;
+        }
+
+        if (temp != nullptr) {
+            head = temp->previous;
+        }
+    }
+
+
+
+};
+
+int main() {
+    DoublyLinkedList list1;
+    list1.Insert(1,0);
+    list1.Insert(2,1);
+    list1.Insert(3,2);
+    list1.Insert(4,3);
+    list1.Insert(5,4);
+    list1.Insert(6,5);
+
+    list1.reverseDoublyLinkedList();
+    list1.Print();
+    return 0 ;
+}

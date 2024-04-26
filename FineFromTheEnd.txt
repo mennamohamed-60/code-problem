@@ -1,0 +1,36 @@
+ void FineFromTheEnd(int k ){     Time Complexity: O(n+k)
+                                  Space Complexity: O(1)
+        if (k<=0){
+            cout << "invalide"<<endl ;
+            return;
+        }
+        Node<T>* p= head->next;
+        while(p -> next !=head){
+            p = p -> next;
+        }
+        for(int i =0 ; i< k-1 ; i++){
+            p = p ->prev;
+        }
+        cout << "the data of node "<<k <<" from the end : "<<p ->value ;
+    }
+
+};
+
+
+
+int main() {
+    DoummyHeadDoublyLinkedList<int> list;
+
+    list.Insert(1);
+    list.Insert(2);
+    list.Insert(3);
+    list.Insert(4);
+    list.Insert(5);
+    list.Insert(6);
+
+    list.FineFromTheEnd(6);
+    list.FineFromTheEnd(0);
+    list.FineFromTheEnd(3);
+
+    return 0;
+}
